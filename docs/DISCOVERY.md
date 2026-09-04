@@ -39,7 +39,9 @@ isso que define o nível:
   grade em vez de fenda (paga barra nas duas direções: 3×3 com barra de 2 =
   36% aberto, pior que fenda), formato do furo.
 - Coisas que mudam: costela mais fina (limite de impressão ~2,4 mm), vão
-  maior (passa peixe), perímetro maior (v2).
+  maior (passa peixe), perímetro maior. Chegamos a desenhar uma "cerca" de
+  Ø191 em volta do cano (vertedouro original intacto, nível zero acima da
+  borda) — descartada pelo dono por ser outra peça, grande; a turbo resolveu.
 - turbo: 80 fendas × 3 mm, costela 2,4 mm, sem banda → 54% → L ≈ **248 mm**.
   Estimativa: h ≈ 28 mm a 2 L/s, 37 mm a 3 L/s (cano nu: 19 / 25 mm).
 - Entupimento: com 30% das fendas tapadas h sobe ~25%. Limpar a coroa faz

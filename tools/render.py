@@ -24,8 +24,8 @@ BLUE, ORANGE, GRAY = "#4a90d9", "#e07b54", "#9a9a9a"
 LBLUE, LORANGE = "#1668dc", "#d4380d"
 
 
-def load(name):
-    return trimesh.load(os.path.join(STL, name))
+def load(version, name):
+    return trimesh.load(os.path.join(STL, version, name))
 
 
 def pipe(od=150.0, id_=143.0, depth=120.0):
@@ -111,19 +111,18 @@ def fig_cestos(v3, v4):
     plt.close(fig)
 
 
-def fig_v2(corpo2, cesto2):
+def fig_petg(corpo, v5):
     fig = plt.figure(figsize=(18, 12))
-    show3d(fig.add_subplot(2, 3, 1, projection="3d"), [(corpo2, BLUE)],
-           "Plano B — cerca Ø191 + luva sobre o cano", elev=22)
-    show3d(fig.add_subplot(2, 3, 2, projection="3d"), [(cesto2, ORANGE)],
-           "Cesto do plano B — 3 ganchos na borda", elev=22)
-    show3d(fig.add_subplot(2, 3, 3, projection="3d"), [(corpo2, BLUE), (cesto2, ORANGE), (pipe(depth=90), GRAY)],
-           "Montado — a borda do cano continua sendo o vertedouro", elev=15)
-    section(fig.add_subplot(2, 1, 2), [(corpo2, LBLUE, "cerca"), (cesto2, LORANGE, "cesto")], 30,
-            "Corte — água entra pela cerca (submersa), cai pela borda livre do cano, passa pelo cesto",
-            xlim=(-110, 110), ylim=(-80, 55))
+    show3d(fig.add_subplot(2, 3, 1, projection="3d"), [(corpo, BLUE)],
+           "Corpo PETG — coroa turbo + assento interno a 45°", elev=15)
+    show3d(fig.add_subplot(2, 3, 2, projection="3d"), [(v5, ORANGE)],
+           "Cesto v5 — borda a 45° que assenta no batente", elev=15)
+    show3d(fig.add_subplot(2, 3, 3, projection="3d"), [(corpo, BLUE), (v5, ORANGE), (pipe(), GRAY)],
+           "Conjunto PETG montado", elev=15)
+    section(fig.add_subplot(2, 1, 2), [(corpo, LBLUE, "corpo PETG"), (v5, LORANGE, "cesto v5")], 30,
+            "Corte — o cesto encosta no anel de 45° dentro da saia: batente positivo, autocentrante, não trava")
     fig.tight_layout()
-    fig.savefig(os.path.join(OUT, "v2_cerca.png"), dpi=100)
+    fig.savefig(os.path.join(OUT, "petg_montado.png"), dpi=100)
     plt.close(fig)
 
 
@@ -162,10 +161,11 @@ def fig_nivel():
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    corpo, v3, v4 = load("corpo150_turbo.stl"), load("cesto150_v3.stl"), load("cesto150_v4.stl")
+    V1, V2 = "v1.0-instalado", "v2.0-petg"
+    corpo, v3, v4 = load(V1, "corpo150_turbo.stl"), load(V1, "cesto150_v3.stl"), load(V1, "cesto150_v4.stl")
     fig_turbo(corpo, v4)
     fig_cestos(v3, v4)
-    fig_v2(load("corpo150_v2.stl"), load("cesto150_v2.stl"))
+    fig_petg(load(V2, "corpo150_petg.stl"), load(V2, "cesto150_v5.stl"))
     fig_nivel()
     print("figures ->", OUT)
 

@@ -9,9 +9,16 @@ lá e já custaram várias impressões.
 
 - **Fonte de verdade é o script**, não o STL. Mudança = editar constante no
   topo de `scripts/skimmer150.py` e regenerar. STL nunca é editado à mão.
-- O corpo `stl/corpo150_turbo.stl` está **impresso e instalado**. Cesto novo
-  tem que encaixar nele: rodar `tools/check_fit.py` contra esse STL exato
-  antes de entregar (0 colisão assentado e em +20/+50 mm; 1 corpo; estanque).
+- **Pares que encaixam**: `corpo150_turbo` ↔ `cesto v3`/`v4`;
+  `corpo150_petg` ↔ `cesto v5`. Nunca misturar. Todo cesto novo passa pelo
+  `tools/check_fit.py` contra o corpo do par (0 colisão assentado e em
+  +20/+50 mm; 1 corpo; estanque; assento com acomodação < 2 mm).
+- **Versionamento**: o que está no lago está em `docs/IMPRESSO.md` (arquivo,
+  material, data, SHA-256) e numa tag `vN.N-instalado`. Ao imprimir e
+  instalar um conjunto novo: atualizar IMPRESSO.md, CHANGELOG.md e criar a
+  tag. Mudança de geometria = entrada no CHANGELOG.
+- O plano B ("cerca" em volta do cano) foi descartado pelo dono e removido
+  do repo — não reintroduzir.
 - Gate de peixe: coroa **3 mm**; fendas do cesto **2 mm** (sempre menores
   que a coroa). Não mexer sem falar com o dono.
 - Nível do lago = perímetro aberto na linha d'água. Altura de coroa, grade e
@@ -29,6 +36,6 @@ lá e já custaram várias impressões.
 
 ```bash
 python3 -m venv venv && ./venv/bin/pip install -r requirements.txt
-cd stl && ../venv/bin/python ../scripts/skimmer150.py
-../venv/bin/python ../tools/check_fit.py corpo150_turbo.stl cesto150_v4.stl
+./venv/bin/python scripts/skimmer150.py
+./venv/bin/python tools/check_fit.py stl/v2.0-petg/corpo150_petg.stl stl/v2.0-petg/cesto150_v5.stl
 ```

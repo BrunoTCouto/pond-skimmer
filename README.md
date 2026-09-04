@@ -17,19 +17,31 @@ borda do cano). Figuras geradas dos STLs por `tools/render.py`.*
 
 ## Peças (estado atual)
 
+Os STLs ficam em **pastas por versão** (`stl/v1.0-instalado/`, `stl/v2.0-petg/`);
+cada pasta é um conjunto que encaixa entre si — ver [stl/README.md](stl/README.md).
+
 | Arquivo | O que é | Status |
 |---|---|---|
-| `stl/corpo150_turbo.stl` | Corpo: saia de centragem dentro do cano, flange na borda, **coroa de 80 mm com 80 fendas de 3 mm** (55% do perímetro aberto), 2 anéis de travamento, parede 4 mm | **impresso** (ABS) |
-| `stl/cesto150_v3.stl` | Cesto: fendas de 2 mm, fundo em cone "raios de sol", botão; pendura pelo topo da coroa em **3 pilares com abinha** | **impresso** (PLA, provisório) |
-| `stl/cesto150_v4.stl` | Cesto: igual ao v3 mas **sem pilares** — assenta num cone de 13° que casa com o chanfro interno da saia; nada acima da borda do cano | para reimprimir em **PETG** |
+| `stl/v1.0-instalado/corpo150_turbo.stl` | Corpo: saia de centragem dentro do cano, flange na borda, **coroa de 80 mm com 80 fendas de 3 mm** (55% do perímetro aberto), 2 anéis de travamento, parede 4 mm | **impresso** (ABS) |
+| `stl/v1.0-instalado/cesto150_v3.stl` | Cesto: fendas de 2 mm, fundo em cone "raios de sol", botão; pendura pelo topo da coroa em **3 pilares com abinha** | **impresso** (PLA, provisório) |
+| `stl/v1.0-instalado/cesto150_v4.stl` | Cesto: igual ao v3 mas **sem pilares** — assenta num cone de 13° que casa com o chanfro interno da saia; nada acima da borda do cano | encaixa no corpo impresso |
+| `stl/v2.0-petg/corpo150_petg.stl` | **Conjunto PETG** — mesma coroa turbo, mas com um **anel de assento a 45° dentro da saia** (batente positivo) e sem o chanfro do furo | para imprimir em **PETG** |
+| `stl/v2.0-petg/cesto150_v5.stl` | **Conjunto PETG** — cesto com borda a 45° que assenta no anel; topo 3 mm abaixo da borda do cano; **72 fendas** de 2 mm na parede (43% aberta, o dobro do v3/v4) | só encaixa no `corpo150_petg` |
+
+> Pares que encaixam: `corpo150_turbo` ↔ `cesto v3` ou `v4`; `corpo150_petg` ↔
+> `cesto v5`. O v5 **não** serve no corpo impresso (sem o anel, cai pra dentro).
+
+![conjunto PETG](docs/images/petg_montado.png)
+
+*Por que o v5 em vez do v4 pra versão definitiva: o cone de 13° do v4 é
+raso e **trava** (efeito cone Morse) — funciona, mas pede um puxão pra tirar
+e depende de folga. O anel de 45° é um batente: posiciona por encosto,
+autocentra, e solta sem esforço.*
 
 ![cesto v3 vs v4](docs/images/cesto_v3_vs_v4.png)
 
-Alternativa (plano B, não impressa): `scripts/skimmer150_v2.py` gera a
-"cerca de peixes" — cerca ranhurada de Ø191 **ao redor** do cano, deixando a
-borda do cano como vertedouro livre. Nível igual ao de antes do skimmer.
-
-![plano B: cerca ao redor do cano](docs/images/v2_cerca.png)
+Versões e o que está instalado: [CHANGELOG.md](CHANGELOG.md) e
+[docs/IMPRESSO.md](docs/IMPRESSO.md) (com SHA-256 dos STLs impressos).
 
 ## Como funciona
 
@@ -52,7 +64,8 @@ borda do cano como vertedouro livre. Nível igual ao de antes do skimmer.
 | Peça | Orientação | Suporte | Notas |
 |---|---|---|---|
 | Corpo | **de cabeça pra baixo** (topo da coroa na mesa), brim 5 mm | não | 80 torres finas: PETG/ABS com câmara fechada; ≥3 perímetros |
-| Cesto v3 / v4 | **em pé** (fundo na mesa), brim 5 mm | **não** | cone a 45°, botão com chanfro, abinhas do v3 têm 2,7 mm de balanço — imprime |
+| Corpo PETG | idem — o anel de assento vira um balanço de 45° na impressão invertida | não | |
+| Cesto v3 / v4 / v5 | **em pé** (fundo na mesa), brim 5 mm | **não** | cone a 45°, botão com chanfro, abinhas do v3 têm 2,7 mm de balanço — imprime |
 
 Material: **PETG** (ideal) ou ABS. PLA aguenta semanas/meses em água de lago,
 mas é quebradiço. 6 perímetros no cesto deixam os pilares maciços.
@@ -69,10 +82,9 @@ mas é quebradiço. 6 perímetros no cesto deixam os pilares maciços.
 
 ```bash
 python3 -m venv venv && ./venv/bin/pip install -r requirements.txt
-cd stl && ../venv/bin/python ../scripts/skimmer150.py      # corpo + cesto v3 + v4
-cd stl && ../venv/bin/python ../scripts/skimmer150_v2.py   # plano B (cerca)
-../venv/bin/python ../tools/check_fit.py corpo150_turbo.stl cesto150_v4.stl
-cd .. && ./venv/bin/python tools/render.py                # figuras de docs/images
+./venv/bin/python scripts/skimmer150.py                       # gera todos os STLs em stl/<versao>/
+./venv/bin/python tools/check_fit.py stl/v2.0-petg/corpo150_petg.stl stl/v2.0-petg/cesto150_v5.stl
+./venv/bin/python tools/render.py                             # figuras de docs/images
 ```
 
 Todas as dimensões são constantes no topo de cada script. `tools/check_fit.py`
@@ -97,7 +109,7 @@ perímetro aberto na linha d'água, e um corte em PNG.
 | Versão | Ideia | Resultado |
 |---|---|---|
 | v1 | coroa de 55 mm com 36 fendas de 3 mm + banda giratória no cesto pra regular 0–3 mm | vertedouro equivalente de ~85 mm (cano nu: 450) → água subiu 45+ mm e passou por cima |
-| v2 | cerca de Ø191 ao redor do cano, vertedouro original intacto | correta hidraulicamente; peça grande e diferente — plano B |
 | turbo | mesma cara da v1: 80 fendas, costelas de 2,4 mm, sem banda, coroa 80 mm | ~248 mm de vertedouro → nível ~3 cm acima da borda (cano nu ~2 cm) — **impressa** |
 | cesto v3 | 3 pilares com abinha no topo da coroa (imprime sem suporte) | impresso em PLA |
-| cesto v4 | assenta no chanfro da saia; nada acima da borda | pronto pra PETG |
+| cesto v4 | assenta no chanfro da saia; nada acima da borda | encaixa no corpo impresso; cone de 13° trava |
+| **conjunto PETG** | corpo com anel de assento a 45° + cesto v5 casado | reimpressão definitiva das duas peças |
