@@ -63,8 +63,8 @@ isso que define o nível:
 ## 5. CSG com manifold3d — pegadinhas que custaram iterações
 
 1. `Manifold.cylinder(h, r_baixo, r_topo)`: a ordem é **base → topo**. Cone
-   invertido aconteceu **três vezes** (saia, transição do cesto, e de novo na
-   v2). Sintoma: peça em vários corpos ou dimensões espelhadas.
+   invertido aconteceu **três vezes** (saia, transição do cesto, e num
+   terceiro cone). Sintoma: peça em vários corpos ou dimensões espelhadas.
 2. Dois sólidos que se tocam só num plano (z=0) **não viram um corpo**:
    `split()` do trimesh mostra 2 shells. Sempre um "anel de solda" com
    sobreposição volumétrica (ex.: `tube(71.5, 70.2, -2, 3.5)` entre saia e
@@ -94,8 +94,13 @@ isso que define o nível:
   → v3: cada pilar termina na sua própria abinha; 3 pilares (assenta sem
   balançar, 5% de bloqueio).
 - v4 elimina os pilares: o cesto assenta num cone de 13° que casa com o
-  chanfro interno da saia (r 68 @ z-10 → 70,3 @ z0). Desce ~1,4 mm e trava
-  com contato de área; nada acima da borda. Feito pra reimpressão em PETG.
+  chanfro interno da saia (r 68 @ z-10 → 70,3 @ z0). Desce ~1,3 mm e trava
+  com contato de área; nada acima da borda. Encaixa no corpo impresso, mas o
+  cone raso **trava** (tan 13° < atrito → efeito cone Morse): sai com um puxão.
+- Conjunto PETG (v2.0): o corpo ganha um **anel de assento a 45°** dentro da
+  saia (batente positivo; impresso invertido vira um balanço de 45°) e o
+  cesto v5 uma borda a 45° casada — autocentra e solta sem esforço. Parede do
+  v5 com 72 fendas (43% aberta) em vez de 36. Só encaixa nesse corpo.
 - Materiais: ABS e PETG são definitivos em água. PLA dura semanas/meses (só
   amolece >55 °C), mas é quebradiço.
 - Bambu Studio com suporte automático planta árvores pras abinhas de 2,7 mm.
