@@ -9,6 +9,7 @@ lá e já custaram várias impressões.
 
 - **Fonte de verdade é o script**, não o STL. Mudança = editar constante no
   topo de `scripts/skimmer150.py` e regenerar. STL nunca é editado à mão.
+- `CrossSection` sempre **anti-horário** no plano (r, z): CW = furo = manifold vazio.
 - **Pares que encaixam**: `corpo150_turbo` ↔ `cesto v3`/`v4`;
   `corpo150_petg` ↔ `cesto v5`. Nunca misturar. Todo cesto novo passa pelo
   `tools/check_fit.py` contra o corpo do par (0 colisão assentado e em
