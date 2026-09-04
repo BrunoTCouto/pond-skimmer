@@ -1,42 +1,51 @@
 # Changelog
 
-Versões do conjunto (corpo + cesto). Tags git marcam o que foi impresso; o que
-está fisicamente no lago está em [docs/IMPRESSO.md](docs/IMPRESSO.md).
+Uma pasta em `stl/` por pedido do dono; **pasta é imutável** — mudança nova é
+versão nova. Tags git marcam o que foi impresso e instalado; o que está
+fisicamente no lago está em [docs/IMPRESSO.md](docs/IMPRESSO.md).
 
-## v2.0 — conjunto PETG (não impresso ainda)
+## v2.3-petg-45-folga — atual (não impressa ainda) — 2026-09-04
 
-Reimpressão definitiva das duas peças, preparada em 2026-09-04.
+"A versão de antes tava boa — fecha a versão boa." Volta o anel de assento a
+45° da v2.0/v2.1, mantendo a folga de 0,7 mm no colar que veio da v2.2.
+`corpo150_v2.3.stl` + `cesto150_v2.3.stl` (72 fendas, colar Ø135).
+Verificação: 1 corpo cada, 0 colisões em 0/+20/+50 mm, 0,4 mm de acomodação
+no anel, 52% do perímetro aberto (240 mm de vertedouro equivalente).
 
-- `stl/v2.0-petg/corpo150_petg.stl`: coroa turbo idêntica à v1.0 (80 fendas × 3 mm,
-  80 mm, 2 anéis, parede 4 mm) + **anel de assento a 45° dentro da saia**
-  (z −9 a −4,8; r 64,5 → 68,7). Impresso de ponta-cabeça o anel cresce pra
-  dentro a 45° e termina reto — imprime sem suporte. Sem o chanfro do furo.
-- `stl/v2.0-petg/cesto150_v5.stl`: borda a 45° que assenta no anel (batente
-  positivo, autocentrante, não trava); colar Ø135 com 0,7 mm de folga no furo
-  da saia; topo em z −3 (nada acima da borda do cano);
-  **72 fendas** de 2 mm na parede (43% aberta, o dobro do v3/v4); fundo em
-  cone com 72 fendas de 2 mm; botão.
-- Pares: `corpo150_petg` ↔ `cesto150_v5` **somente**. O v5 não tem onde
-  apoiar no corpo v1.0 (cai 8 mm até bater na saia).
-- Verificação: 1 corpo cada, 0 colisões em 0/+20/+50 mm, assenta no anel
-  com 0,4 mm de acomodação, perímetro aberto 52% → 240 mm de vertedouro
-  equivalente.
+## v2.2-petg-prateleira — 2026-09-04
 
-## v1.0 — instalado (tag `v1.0-instalado`)
+"Chanfro de suporte mais fácil de imprimir: parte de baixo sobe inclinado,
+parte de cima reta." Assento vira prateleira reta de 2,2 mm com 60° embaixo;
+cesto com colar reto Ø135 (folga 0,7 mm — a v2.0/v2.1 tinham 0,2–0,6, apertado
+pra PETG). Imprime; na orientação invertida é equivalente ao 45°. Superada.
 
-O que está no lago desde 2026-09-03/04.
+## v2.1-petg-72fendas — 2026-09-04
 
-- `stl/v1.0-instalado/corpo150_turbo.stl` — ABS. Coroa 80 mm, 80 fendas de 3 mm a 20°,
-  costelas ~2,4 mm, parede 4 mm, 2 anéis de travamento, canais na borda a
-  cada 2 fendas, saia Ø136→142 com chanfro interno de 13° no furo.
-- `stl/v1.0-instalado/cesto150_v3.stl` — PLA (provisório). 3 pilares 8×3 com abinha no topo
-  da coroa e reforço de 45° na base; 36 fendas de 2 mm a 30° na parede;
-  fundo em cone; botão.
-- Também compatível com esse corpo: `stl/v1.0-instalado/cesto150_v4.stl` (assenta no
-  chanfro de 13° da saia; nunca impresso — o cone raso trava, ver DISCOVERY).
+"Dá pra aumentar a quantidade de vãos na lateral do cesto?" Fendas da parede
+do cesto 36 → 72 (43% aberta, o dobro). Corpo igual à v2.0.
 
-## v0 — v1 original (superada, arquivos não preservados)
+## v2.0-petg — 2026-09-04
 
-- Coroa de 55 mm com 36 fendas de 3 mm + banda giratória no cesto (regulagem
-  0–3 mm). Impressa; a água passou por cima da coroa (vertedouro equivalente
-  ~85 mm). Lição registrada em `docs/DISCOVERY.md`.
+"Fazer todos os modelos novos, preparar tudo pro PETG." Corpo com **anel de
+assento a 45° dentro da saia** (z −9 a −4,8; r 64,5 → 68,7), sem o chanfro do
+furo; cesto sem pilares, borda a 45° que assenta no anel, 36 fendas, colar
+Ø136. Motivação: o cone de 13° do v4 trava (cone Morse); o anel de 45° é um
+batente que autocentra e solta fácil.
+
+## v1.0-instalado — tag `v1.0-instalado` — 2026-09-03/04
+
+O que está no lago.
+
+- `corpo150_turbo.stl` — ABS. Coroa 80 mm, 80 fendas de 3 mm a 20°, costelas
+  ~2,4 mm, parede 4 mm, 2 anéis de travamento, canais na borda a cada 2
+  fendas, saia Ø136→142 com chanfro interno de 13° no furo.
+- `cesto150_v3.stl` — PLA (provisório). 3 pilares 8×3 com abinha no topo da
+  coroa e reforço de 45° na base; 36 fendas de 2 mm; fundo em cone; botão.
+- `cesto150_v4.stl` — também encaixa nesse corpo (assenta no chanfro de 13°;
+  nunca impresso — o cone raso trava).
+
+## v0 — original (superada, arquivos não preservados)
+
+Coroa de 55 mm com 36 fendas de 3 mm + banda giratória no cesto. Impressa; a
+água passou por cima (vertedouro equivalente ~85 mm). Lição em
+`docs/DISCOVERY.md`.

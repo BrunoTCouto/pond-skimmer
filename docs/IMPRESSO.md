@@ -23,6 +23,6 @@ lago — o par de referência continua sendo o hash acima (recuperável com
 - Cano: PVC esgoto, externo 149–151, interno 143–145, parede 3 mm.
 - A saia (Ø142 na borda) entra com folga; a flange apoia na borda.
 - Cesto v3 apoia pelas 3 abinhas no topo da coroa, em qualquer ângulo.
-- Plano: substituir **as duas peças** pelo conjunto PETG (v2.0) — corpo com
-  anel de assento + cesto v5. Aí este arquivo deve ser atualizado e uma tag
-  `v2.0-instalado` criada.
+- Plano: substituir **as duas peças** pelo conjunto PETG atual
+  (`stl/v2.3-petg-45-folga/`). Aí este arquivo deve ser atualizado (hashes
+  novos) e uma tag `v2.3-instalado` criada.

@@ -22,6 +22,8 @@ STL = os.path.join(ROOT, "stl")
 OUT = os.path.join(ROOT, "docs", "images")
 BLUE, ORANGE, GRAY = "#4a90d9", "#e07b54", "#9a9a9a"
 LBLUE, LORANGE = "#1668dc", "#d4380d"
+# the README shows the latest version; bump these when a new version folder is added
+LATEST, LATEST_CORPO, LATEST_CESTO = "v2.3-petg-45-folga", "corpo150_v2.3.stl", "cesto150_v2.3.stl"
 
 
 def load(version, name):
@@ -114,11 +116,11 @@ def fig_cestos(v3, v4):
 def fig_petg(corpo, v5):
     fig = plt.figure(figsize=(18, 12))
     show3d(fig.add_subplot(2, 3, 1, projection="3d"), [(corpo, BLUE)],
-           "Corpo PETG — coroa turbo + anel de assento interno a 45°", elev=15)
+           f"{LATEST} — corpo: coroa turbo + anel de assento interno a 45°", elev=15)
     show3d(fig.add_subplot(2, 3, 2, projection="3d"), [(v5, ORANGE)],
-           "Cesto v5 — borda a 45° que assenta no anel; 72 fendas", elev=15)
+           "cesto: borda a 45° que assenta no anel; 72 fendas; folga 0,7 mm", elev=15)
     show3d(fig.add_subplot(2, 3, 3, projection="3d"), [(corpo, BLUE), (v5, ORANGE), (pipe(), GRAY)],
-           "Conjunto PETG montado", elev=15)
+           "conjunto PETG montado no cano", elev=15)
     section(fig.add_subplot(2, 1, 2), [(corpo, LBLUE, "corpo PETG"), (v5, LORANGE, "cesto v5")], 30,
             "Corte — o cesto encosta no anel de 45° dentro da saia: batente positivo, autocentrante, não trava")
     fig.tight_layout()
@@ -161,11 +163,11 @@ def fig_nivel():
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    V1, V2 = "v1.0-instalado", "v2.0-petg"
+    V1, V2 = "v1.0-instalado", LATEST
     corpo, v3, v4 = load(V1, "corpo150_turbo.stl"), load(V1, "cesto150_v3.stl"), load(V1, "cesto150_v4.stl")
     fig_turbo(corpo, v4)
     fig_cestos(v3, v4)
-    fig_petg(load(V2, "corpo150_petg.stl"), load(V2, "cesto150_v5.stl"))
+    fig_petg(load(V2, LATEST_CORPO), load(V2, LATEST_CESTO))
     fig_nivel()
     print("figures ->", OUT)
 

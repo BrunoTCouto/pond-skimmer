@@ -7,8 +7,8 @@
 </p>
 
 <p align="center">
-  <img src="docs/images/petg_montado.png" alt="v2.0: corpo PETG + cesto v5 montados no cano" width="900"><br>
-  <sub><b>v2.0</b> — corpo com anel de assento interno e cesto v5. z = 0 é a borda do cano. Figuras geradas dos STLs por <code>tools/render.py</code>.</sub>
+  <img src="docs/images/petg_montado.png" alt="v2.3: corpo PETG + cesto montados no cano" width="900"><br>
+  <sub><b>v2.3</b> (atual) — corpo com anel de assento interno a 45° e cesto de 72 fendas. z = 0 é a borda do cano. Figuras geradas dos STLs por <code>tools/render.py</code>.</sub>
 </p>
 
 <p align="center">
@@ -32,7 +32,7 @@ versões diferentes **não** encaixam.
 
 | Quero… | Pasta | Arquivos | Material |
 |---|---|---|---|
-| a versão definitiva | [`stl/v2.0-petg/`](stl/v2.0-petg/) | `corpo150_petg.stl` + `cesto150_v5.stl` | PETG |
+| a versão definitiva (atual) | [`stl/v2.3-petg-45-folga/`](stl/v2.3-petg-45-folga/) | `corpo150_v2.3.stl` + `cesto150_v2.3.stl` | PETG |
 | reproduzir o que está no lago hoje | [`stl/v1.0-instalado/`](stl/v1.0-instalado/) | `corpo150_turbo.stl` + `cesto150_v3.stl` | ABS + PLA |
 
 Configurações de impressão em [Impressão](#-impressão). Nenhuma peça usa
@@ -65,14 +65,15 @@ cano, um cesto removível.
 
 ## 📦 Peças e versões
 
-Os STLs vivem em **pastas por versão**; cada pasta é um conjunto fechado, com
-README próprio. Visão geral em [`stl/README.md`](stl/README.md), detalhes em
+Os STLs vivem em **pastas por versão — uma por pedido, imutáveis**; cada
+pasta é um conjunto fechado, com README próprio. Visão geral em [`stl/README.md`](stl/README.md), detalhes em
 [`CHANGELOG.md`](CHANGELOG.md), e o que está fisicamente instalado (com
 SHA-256) em [`docs/IMPRESSO.md`](docs/IMPRESSO.md).
 
 | Versão | Corpo | Cesto | Como o cesto se apoia | Status |
 |---|---|---|---|---|
-| **v2.0** `stl/v2.0-petg/` | coroa turbo + **anel de assento a 45°** interno | **v5**: borda a 45°, **72 fendas** de 2 mm (43% aberta) | borda encosta no anel: batente positivo, autocentra, não trava | pronto pra imprimir em PETG |
+| **v2.3** `stl/v2.3-petg-45-folga/` | coroa turbo + **anel de assento a 45°** interno | borda a 45°, **72 fendas** de 2 mm (43% aberta), colar com 0,7 mm de folga | borda encosta no anel: batente positivo, autocentra, não trava | **atual** — imprimir em PETG |
+| v2.0 → v2.2 | idem (v2.2: prateleira reta) | 36 → 72 fendas; colar 0,2–0,6 → 0,7 mm | — | superadas; ver `stl/README.md` |
 | **v1.0** `stl/v1.0-instalado/` | coroa turbo (chanfro no furo da saia) | **v3**: 3 pilares com abinha, 36 fendas | abinhas no topo da coroa | **no lago** (ABS + PLA), tag `v1.0-instalado` |
 | v1.0 alternativa | — | **v4**: sem pilares | cone de 13° no chanfro da saia (trava, tipo cone Morse) | encaixa no corpo v1.0; não impresso |
 
@@ -96,8 +97,8 @@ sol" (72 fendas de 2 mm) e botão central pra puxar.
 
 | Peça | Orientação | Brim | Suporte | Perímetros | Notas |
 |---|---|---|---|---|---|
-| Corpo (qualquer versão) | **de cabeça pra baixo** — topo da coroa na mesa | 5 mm | **não** | ≥ 3 | 80 torres finas de 2,4 mm: câmara fechada ajuda; os anéis de travamento amarram as torres. Na v2.0 o anel de assento vira um balanço de 45° |
-| Cesto (v3 / v4 / v5) | **em pé** — fundo na mesa | 5 mm | **não** | 6 | cone a 45°, botão com cone de 45° sob a cabeça; abinhas do v3 têm 2,7 mm de balanço |
+| Corpo (qualquer versão) | **de cabeça pra baixo** — topo da coroa na mesa | 5 mm | **não** | ≥ 3 | 80 torres finas de 2,4 mm: câmara fechada ajuda; os anéis de travamento amarram as torres. Na v2.x o anel de assento vira um balanço de 45° |
+| Cesto (todas as versões) | **em pé** — fundo na mesa | 5 mm | **não** | 6 | cone a 45°, botão com cone de 45° sob a cabeça; abinhas do v3 têm 2,7 mm de balanço |
 
 **Material**: PETG é o ideal (água + sol). ABS também é definitivo. PLA
 aguenta semanas/meses em água de lago, mas é quebradiço — serve de
@@ -108,7 +109,7 @@ provisório. Se o slicer oferecer suporte automático, **recuse**: ele planta
 
 1. **Corpo**: desce com a saia dentro do cano até o aro apoiar na borda. Sem
    fixação — a saia (Ø142 na borda) centraliza com 0,5–1,5 mm de folga.
-2. **Cesto**: desce pelo centro da coroa. v5 assenta a borda de 45° no anel
+2. **Cesto**: desce pelo centro da coroa. v2.x assenta a borda de 45° no anel
    interno (autocentra); v3 apoia as 3 abinhas no topo da coroa, em qualquer
    ângulo.
 3. **Limpeza**: puxa o cesto pelo botão, sacode, volta. A coroa se limpa
@@ -141,8 +142,8 @@ dimensões são constantes no topo do arquivo; STL nunca é editado à mão.
 
 ```bash
 python3 -m venv venv && ./venv/bin/pip install -r requirements.txt
-./venv/bin/python scripts/skimmer150.py           # gera todos os STLs em stl/<versão>/
-./venv/bin/python tools/check_fit.py stl/v2.0-petg/corpo150_petg.stl stl/v2.0-petg/cesto150_v5.stl
+./venv/bin/python scripts/skimmer150.py           # gera TODAS as pastas de stl/ (tabela VERSIONS no fim do script)
+./venv/bin/python tools/check_fit.py stl/v2.3-petg-45-folga/corpo150_v2.3.stl stl/v2.3-petg-45-folga/cesto150_v2.3.stl
 ./venv/bin/python tools/render.py                 # figuras de docs/images
 ```
 
@@ -164,8 +165,8 @@ Regras que custaram impressões (detalhes no Discovery):
 ## 🗂️ Layout do repo
 
 ```
-scripts/skimmer150.py     fonte de verdade: corpo turbo, corpo PETG, cestos v3/v4/v5
-stl/<versão>/             STLs gerados + README do conjunto
+scripts/skimmer150.py     fonte de verdade; tabela VERSIONS = uma pasta por versão
+stl/<versão>/             STLs gerados + README do conjunto (pastas imutáveis)
 tools/check_fit.py        verificação de encaixe e vazão
 tools/render.py           figuras de docs/images a partir dos STLs
 docs/DISCOVERY.md         diário: hidráulica, peixes, CSG, impressão

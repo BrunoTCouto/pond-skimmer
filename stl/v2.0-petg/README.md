@@ -1,18 +1,11 @@
-# v2.0 — conjunto PETG (reimpressão definitiva)
+# v2.0-petg — primeiro conjunto PETG (superada)
+
+Pedido: "fazer todos os modelos novos, preparar tudo pro PETG" — corpo com
+suporte interno pro cesto em vez de pilares.
 
 | Arquivo | Peça | Notas |
 |---|---|---|
-| `corpo150_petg.stl` | corpo | mesma coroa turbo da v1.0 + **anel de assento a 45°** dentro da saia (z −9 a −4,8; r 64,5 → 68,7); sem o chanfro do furo |
-| `cesto150_v5.stl` | cesto | borda a 45° que assenta no anel (batente positivo, autocentrante, não trava); colar Ø135 com 0,7 mm de folga no furo; topo em z −3 (nada acima da borda do cano); **72 fendas × 2 mm** na parede (43% aberta); fundo em cone; botão |
+| `corpo150_v2.0.stl` | corpo | coroa turbo da v1.0 + **anel de assento a 45°** dentro da saia (z −9 a −4,8; r 64,5 → 68,7); sem o chanfro do furo |
+| `cesto150_v2.0.stl` | cesto | borda a 45° que assenta no anel; colar Ø136 (folga de só 0,2–0,6 mm no furo — corrigido na v2.2+); **36 fendas** de 2 mm; fundo em cone; botão |
 
-**Só encaixam um no outro.** O v5 não tem apoio no corpo da v1.0 (cai ~8 mm
-até bater na saia); os cestos v3/v4 não foram desenhados pra este corpo.
-
-Impressão (PETG, Bambu P1S): corpo de cabeça pra baixo com brim — o anel de
-assento vira um balanço de 45°, imprime; cesto em pé com brim, 6 perímetros;
-suporte **desligado** nos dois.
-
-Verificado: 1 corpo cada, 0 colisões assentado e em +20/+50 mm, assento com 0,4 mm de
-acomodação, 52% do perímetro aberto (240 mm de vertedouro eq.).
-
-Ao instalar: atualizar `docs/IMPRESSO.md` e criar a tag `v2.0-instalado`.
+Só encaixam um no outro. Superada por [`v2.1-petg-72fendas`](../v2.1-petg-72fendas/).

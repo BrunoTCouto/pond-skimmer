@@ -42,20 +42,18 @@ SEAT_WALL = 2.4
 COLLAR4_R, COLLAR4_Z1 = 69.2, 3.0       # centering collar, 0.8 mm to the flange bore
 FINE4_Z0, FINE4_Z1 = -52.0, -20.0
 
-# ---------------- PETG set: corpo with an internal 45-deg seat + cesto v5 ----------------
-# Ledge inside the skirt: flat underside, 45-deg top face rising to the bore.
-# The corpo prints upside-down, so in print the ledge grows inward at 45 deg
-# (printable) and ends in a flat top: fine. The basket's 45-deg flare lands
-# on the face: positive stop, self-centering, does not self-lock (unlike the
-# 13-deg bevel seat of v4). No bevel cut in this corpo.
-# Skirt bore here is r 68.2 @ z-6 .. 68.6 @ z0.
-SEAT5_R_IN  = 64.5                      # ledge reaches inward to here
-SEAT5_Z_BOT = -9.0                      # flat underside of the ledge
-SEAT5_R_TOP = 68.7                      # where the 45-deg face meets the skirt bore
-V5_TOP_R    = 67.5                      # basket collar radius: 0.7 mm clearance to the bore
-V5_TOP_Z    = -3.0                      # nothing above this (rim is z=0)
+# ---------------- PETG sets (v2.x) ----------------
+# Two seat variants for the basket inside the skirt (corpo prints upside-down):
+#  "cone45": ledge with flat underside and a 45-deg top face rising to the bore;
+#            the basket's 45-deg flare lands on it (self-centering, no self-lock).
+#  "shelf":  flat 2.2 mm shelf on top, 60-deg underside; the basket's flat
+#            collar bottom rests on it (positive stop, no self-lock).
+# Skirt bore (no bevel in these corpos): r 68.2 @ z-6 .. 68.6 @ z0.
+SEAT5_R_IN, SEAT5_Z_BOT, SEAT5_R_TOP = 64.5, -9.0, 68.7      # cone45 ledge
+SHELF_Z, SHELF_R_IN, LEDGE_H = -6.0, 66.0, 3.8               # shelf ledge (60 deg = 2.2 over 3.8)
+V5_TOP_Z = -3.0                                              # basket top: nothing above this
+V5_FLARE_R = 66.0                                            # shelf variant: 45-deg flare 63 -> 66
 FINE5_Z0, FINE5_Z1 = -52.0, -16.0
-N_FINE5 = 72                            # 2x the v3/v4 slot count: ribs ~2.8 mm, ~42% open
 
 
 def tube(r_out, r_in, z0, z1, seg=SEG):
@@ -173,8 +171,8 @@ def build_cesto_v4():
     return cesto - _basket_cuts(hub_top, FINE4_Z0, FINE4_Z1)
 
 
-def build_corpo_petg():
-    """Turbo corpo + internal 45-deg seat ledge, no bore bevel (PETG reprint)."""
+def build_corpo_petg(seat="cone45"):
+    """Turbo corpo + internal seat ledge, no bore bevel. seat: "cone45" | "shelf"."""
     skirt = cone_tube(SKIRT_R_BOT, SKIRT_R_TOP, SKIRT_WALL, -SKIRT_LEN, 0.0)
     flange = tube(FLANGE_R_OUT, FLANGE_R_IN, 0.0, FLANGE_T)
     cham = (Manifold.cylinder(FLANGE_R_OUT - CROWN_R_OUT, FLANGE_R_OUT, CROWN_R_OUT, SEG)
@@ -182,13 +180,17 @@ def build_corpo_petg():
             - Manifold.cylinder(10.0, CROWN_R_IN, CROWN_R_IN, SEG).translate([0, 0, FLANGE_T - 1]))
     crown = tube(CROWN_R_OUT, CROWN_R_IN, FLANGE_T, CROWN_TOP)
     fuse = tube(SKIRT_R_TOP, 70.2, -2.0, FLANGE_T)
-    # seat ledge (CCW in the r-z plane: CW polygons are read as holes -> empty
-    # manifold): flat bottom, 45-deg top face, welded 1 mm into the skirt wall
-    z_top = SEAT5_Z_BOT + (SEAT5_R_TOP - SEAT5_R_IN)
-    prof = CrossSection([[(SEAT5_R_IN, SEAT5_Z_BOT), (SEAT5_R_TOP + 1.0, SEAT5_Z_BOT),
-                          (SEAT5_R_TOP + 1.0, z_top)]])
-    seat = Manifold.revolve(prof, SEG)
-    body = skirt + flange + cham + crown + fuse + seat
+    # ledge profiles are CCW in the (r, z) plane: CW polygons are read as holes -> empty manifold
+    if seat == "cone45":
+        z_top = SEAT5_Z_BOT + (SEAT5_R_TOP - SEAT5_R_IN)
+        prof = CrossSection([[(SEAT5_R_IN, SEAT5_Z_BOT), (SEAT5_R_TOP + 1.0, SEAT5_Z_BOT),
+                              (SEAT5_R_TOP + 1.0, z_top)]])
+    elif seat == "shelf":
+        prof = CrossSection([[(SHELF_R_IN, SHELF_Z), (SHELF_R_IN + 2.2, SHELF_Z - LEDGE_H),
+                              (69.5, SHELF_Z - LEDGE_H), (69.5, SHELF_Z)]])
+    else:
+        raise ValueError(seat)
+    body = skirt + flange + cham + crown + fuse + Manifold.revolve(prof, SEG)
     slots = radial_cuts(N_SLOTS, CROWN_SLOT_W, 58.0, FLANGE_R_OUT + 3,
                         FLANGE_T, CROWN_SLOT_TOP, tilt=SLOT_TILT)
     notches = radial_cuts(N_SLOTS // 2, CROWN_SLOT_W, 68.0, FLANGE_R_OUT + 3, -0.5, FLANGE_T)
@@ -199,18 +201,25 @@ def build_corpo_petg():
     return body
 
 
-def build_cesto_v5():
-    """Basket for the PETG corpo: 45-deg flare lands on the seat face."""
-    # flare outer line r = 63 + (z - z1) coincides with the seat face
-    # r = SEAT5_R_IN + (z - SEAT5_Z_BOT)  ->  z1 = SEAT5_Z_BOT - (SEAT5_R_IN - BASK_R_OUT)
-    z1 = SEAT5_Z_BOT - (SEAT5_R_IN - BASK_R_OUT)
-    z2 = z1 + (V5_TOP_R - BASK_R_OUT)
-    flare = cone_tube(BASK_R_OUT, V5_TOP_R, BASK_WALL + 0.4, z1, z2 + 0.01)
-    collar = tube(V5_TOP_R, V5_TOP_R - BASK_WALL - 0.4, z2, V5_TOP_Z)
+def build_cesto_v5(seat="cone45", collar_r=68.0, n_fine=N_FINE):
+    """Basket for a PETG corpo. seat must match the corpo's; collar_r = OD/2 of
+    the collar in the skirt bore (68.0 -> 0.2-0.6 mm clearance, 67.5 -> 0.7 mm)."""
+    if seat == "cone45":
+        # flare outer line r = 63 + (z - z1) coincides with the seat face r = SEAT5_R_IN + (z - SEAT5_Z_BOT)
+        z1 = SEAT5_Z_BOT - (SEAT5_R_IN - BASK_R_OUT)
+        z2 = z1 + (collar_r - BASK_R_OUT)
+        flare = cone_tube(BASK_R_OUT, collar_r, BASK_WALL + 0.4, z1, z2 + 0.01)
+        collar = tube(collar_r, collar_r - BASK_WALL - 0.4, z2, V5_TOP_Z)
+    elif seat == "shelf":
+        z1 = SHELF_Z - (V5_FLARE_R - BASK_R_OUT)
+        flare = cone_tube(BASK_R_OUT, V5_FLARE_R, BASK_WALL + 0.4, z1, SHELF_Z + 0.01)
+        collar = tube(collar_r, V5_FLARE_R - BASK_WALL, SHELF_Z, V5_TOP_Z)   # flat bottom = seat face
+    else:
+        raise ValueError(seat)
     wall = tube(BASK_R_OUT, BASK_R_OUT - BASK_WALL, BASK_BOTTOM_Z, z1 + 0.5)
     cone, knob, hub_top = _cone_and_knob()
     cesto = flare + collar + wall + cone + knob
-    return cesto - _basket_cuts(hub_top, FINE5_Z0, FINE5_Z1, n_fine=N_FINE5)
+    return cesto - _basket_cuts(hub_top, FINE5_Z0, FINE5_Z1, n_fine=n_fine)
 
 
 def export(m, path):
@@ -222,15 +231,40 @@ def export(m, path):
           f"bbox={np.round(tm.bounds, 1).tolist()}")
 
 
+# One folder per owner request. FROZEN: never change an existing entry - a new
+# change is a new entry (and a new folder). LATEST is what the README shows.
+VERSIONS = {
+    "v1.0-instalado": {            # in the pond: ABS corpo + PLA cesto v3 (+ v4 fits it)
+        "corpo150_turbo.stl": lambda: build_corpo(),
+        "cesto150_v3.stl": lambda: build_cesto_v3(),
+        "cesto150_v4.stl": lambda: build_cesto_v4(),
+    },
+    "v2.0-petg": {                 # first PETG set: 45-deg seat, collar 68.0, 36 slots
+        "corpo150_v2.0.stl": lambda: build_corpo_petg("cone45"),
+        "cesto150_v2.0.stl": lambda: build_cesto_v5("cone45", 68.0, 36),
+    },
+    "v2.1-petg-72fendas": {        # + basket wall slots 36 -> 72
+        "corpo150_v2.1.stl": lambda: build_corpo_petg("cone45"),
+        "cesto150_v2.1.stl": lambda: build_cesto_v5("cone45", 68.0, 72),
+    },
+    "v2.2-petg-prateleira": {      # flat 2.2 mm shelf + 60-deg underside; collar 67.5
+        "corpo150_v2.2.stl": lambda: build_corpo_petg("shelf"),
+        "cesto150_v2.2.stl": lambda: build_cesto_v5("shelf", 67.5, 72),
+    },
+    "v2.3-petg-45-folga": {        # back to the 45-deg seat, keeping the 0.7 mm collar clearance
+        "corpo150_v2.3.stl": lambda: build_corpo_petg("cone45"),
+        "cesto150_v2.3.stl": lambda: build_cesto_v5("cone45", 67.5, 72),
+    },
+}
+LATEST = "v2.3-petg-45-folga"
+
 if __name__ == "__main__":
     import os
+    import sys
     ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    V1 = os.path.join(ROOT, "stl", "v1.0-instalado")   # what is in the pond (ABS corpo + PLA cesto v3)
-    V2 = os.path.join(ROOT, "stl", "v2.0-petg")        # PETG reprint set
-    os.makedirs(V1, exist_ok=True)
-    os.makedirs(V2, exist_ok=True)
-    export(build_corpo(), os.path.join(V1, "corpo150_turbo.stl"))      # PRINTED (ABS) - do not change
-    export(build_cesto_v3(), os.path.join(V1, "cesto150_v3.stl"))      # PRINTED (PLA)
-    export(build_cesto_v4(), os.path.join(V1, "cesto150_v4.stl"))      # fits the printed corpo (bevel seat)
-    export(build_corpo_petg(), os.path.join(V2, "corpo150_petg.stl"))  # corpo with internal 45-deg seat
-    export(build_cesto_v5(), os.path.join(V2, "cesto150_v5.stl"))      # basket for corpo150_petg ONLY
+    wanted = sys.argv[1:] or list(VERSIONS)
+    for ver in wanted:
+        out = os.path.join(ROOT, "stl", ver)
+        os.makedirs(out, exist_ok=True)
+        for name, build in VERSIONS[ver].items():
+            export(build(), os.path.join(out, name))
