@@ -33,6 +33,8 @@ isso que define o nível:
 - v1: fenda de 3 mm a cada 12 mm (25% aberto) × banda do cesto (79%) → L ≈
   **85 mm**. Com a bomba do lago (estimada em 2–3 L/s pela foto), h > 55 mm
   → passou por cima da coroa.
+![altura não é vazão](images/nivel_altura_nao_ajuda.png)
+
 - Coisas que **não** mudam o nível: altura da coroa (fenda seca é parede),
   grade em vez de fenda (paga barra nas duas direções: 3×3 com barra de 2 =
   36% aberto, pior que fenda), formato do furo.

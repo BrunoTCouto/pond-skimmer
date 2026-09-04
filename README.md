@@ -10,10 +10,10 @@ Skimmer de lago impresso em 3D para **cano de PVC de esgoto de 150 mm**
 > interno removível — é dele; a geometria aqui é toda nova. O `.3mf` original
 > não está neste repo.
 
-![v1 instalada transbordando](docs/images/v1_instalado_transbordando.jpg)
+![corpo turbo + cesto v4 montados no cano](docs/images/turbo_montado.png)
 
-*A v1 instalada: a água passa por cima da coroa. Foi o que ensinou a lição de
-hidráulica descrita em [docs/DISCOVERY.md](docs/DISCOVERY.md).*
+*Corpo turbo e cesto v4, e o corte montado no cano de 150 mm (z = 0 é a
+borda do cano). Figuras geradas dos STLs por `tools/render.py`.*
 
 ## Peças (estado atual)
 
@@ -23,9 +23,13 @@ hidráulica descrita em [docs/DISCOVERY.md](docs/DISCOVERY.md).*
 | `stl/cesto150_v3.stl` | Cesto: fendas de 2 mm, fundo em cone "raios de sol", botão; pendura pelo topo da coroa em **3 pilares com abinha** | **impresso** (PLA, provisório) |
 | `stl/cesto150_v4.stl` | Cesto: igual ao v3 mas **sem pilares** — assenta num cone de 13° que casa com o chanfro interno da saia; nada acima da borda do cano | para reimprimir em **PETG** |
 
+![cesto v3 vs v4](docs/images/cesto_v3_vs_v4.png)
+
 Alternativa (plano B, não impressa): `scripts/skimmer150_v2.py` gera a
 "cerca de peixes" — cerca ranhurada de Ø191 **ao redor** do cano, deixando a
 borda do cano como vertedouro livre. Nível igual ao de antes do skimmer.
+
+![plano B: cerca ao redor do cano](docs/images/v2_cerca.png)
 
 ## Como funciona
 
@@ -68,6 +72,7 @@ python3 -m venv venv && ./venv/bin/pip install -r requirements.txt
 cd stl && ../venv/bin/python ../scripts/skimmer150.py      # corpo + cesto v3 + v4
 cd stl && ../venv/bin/python ../scripts/skimmer150_v2.py   # plano B (cerca)
 ../venv/bin/python ../tools/check_fit.py corpo150_turbo.stl cesto150_v4.stl
+cd .. && ./venv/bin/python tools/render.py                # figuras de docs/images
 ```
 
 Todas as dimensões são constantes no topo de cada script. `tools/check_fit.py`
