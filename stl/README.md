@@ -24,6 +24,9 @@ pastas a partir da tabela `VERSIONS` no fim do script (ou
 editado à mão. Detalhes de cada versão no [CHANGELOG](../CHANGELOG.md); o que
 está fisicamente instalado (com SHA-256) em [docs/IMPRESSO.md](../docs/IMPRESSO.md).
 
+Cada pasta tem um `preview.png` (3 vistas 3D + corte com o cesto assentado),
+gerado por `python tools/render.py` — é o que se olha antes de imprimir.
+
 Antes de imprimir, confira o par:
 
 ```bash

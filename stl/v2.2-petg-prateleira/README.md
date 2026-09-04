@@ -12,3 +12,7 @@ Funciona e imprime (o topo reto vira um balanço de uma camada de 2,2 mm na
 impressão invertida). O dono preferiu voltar ao anel de 45°, que na
 impressão de ponta-cabeça já era "base inclinada, topo reto".
 Superada por [`v2.3-petg-45-folga`](../v2.3-petg-45-folga/).
+
+## Preview
+
+![preview](preview.png)

@@ -9,3 +9,7 @@ suporte interno pro cesto em vez de pilares.
 | `cesto150_v2.0.stl` | cesto | borda a 45° que assenta no anel; colar Ø136 (folga de só 0,2–0,6 mm no furo — corrigido na v2.2+); **36 fendas** de 2 mm; fundo em cone; botão |
 
 Só encaixam um no outro. Superada por [`v2.1-petg-72fendas`](../v2.1-petg-72fendas/).
+
+## Preview
+
+![preview](preview.png)

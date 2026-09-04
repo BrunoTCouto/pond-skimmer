@@ -11,3 +11,9 @@ suporte; ≥3 perímetros (6 no cesto).
 
 SHA-256 dos arquivos impressos em [docs/IMPRESSO.md](../../docs/IMPRESSO.md).
 Tag git: `v1.0-instalado`.
+
+## Preview
+
+![corpo + cesto v3](preview_cesto150_v3.png)
+
+![corpo + cesto v4](preview_cesto150_v4.png)

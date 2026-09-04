@@ -18,3 +18,7 @@ Verificado: 1 corpo cada, 0 colisões assentado e em +20/+50 mm, assenta no
 anel com 0,4 mm de acomodação, 52% do perímetro aberto (240 mm de vertedouro).
 
 Ao instalar: atualizar `docs/IMPRESSO.md` e criar a tag `v2.3-instalado`.
+
+## Preview
+
+![preview](preview.png)

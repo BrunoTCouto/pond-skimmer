@@ -17,13 +17,21 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection  # noqa: E402
 
+import sys  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STL = os.path.join(ROOT, "stl")
 OUT = os.path.join(ROOT, "docs", "images")
+sys.path.insert(0, os.path.join(ROOT, "scripts"))
+sys.path.insert(0, os.path.join(ROOT, "tools"))
+from skimmer150 import VERSIONS, LATEST as LATEST_VERSION  # noqa: E402
+from check_fit import seating_drop  # noqa: E402
 BLUE, ORANGE, GRAY = "#4a90d9", "#e07b54", "#9a9a9a"
 LBLUE, LORANGE = "#1668dc", "#d4380d"
-# the README shows the latest version; bump these when a new version folder is added
-LATEST, LATEST_CORPO, LATEST_CESTO = "v2.3-petg-45-folga", "corpo150_v2.3.stl", "cesto150_v2.3.stl"
+# the README shows the latest version (LATEST from the script)
+LATEST = LATEST_VERSION
+LATEST_CORPO = [n for n in VERSIONS[LATEST] if n.startswith("corpo")][0]
+LATEST_CESTO = [n for n in VERSIONS[LATEST] if n.startswith("cesto")][-1]
 
 
 def load(version, name):
@@ -128,6 +136,37 @@ def fig_petg(corpo, v5):
     plt.close(fig)
 
 
+def fig_version(version, corpo_name, cesto_name, out_path):
+    """3 shaded views + seated cross-section for one version folder."""
+    corpo, cesto = load(version, corpo_name), load(version, cesto_name)
+    drop = seating_drop(corpo, cesto) or 0.0
+    seated = cesto.copy()
+    seated.apply_translation([0, 0, -drop])
+    fig = plt.figure(figsize=(18, 12))
+    show3d(fig.add_subplot(2, 3, 1, projection="3d"), [(corpo, BLUE)], f"{version} — {corpo_name}", elev=15)
+    show3d(fig.add_subplot(2, 3, 2, projection="3d"), [(cesto, ORANGE)], cesto_name, elev=15)
+    show3d(fig.add_subplot(2, 3, 3, projection="3d"), [(corpo, BLUE), (seated, ORANGE), (pipe(), GRAY)],
+           "montado no cano de 150 mm", elev=15)
+    section(fig.add_subplot(2, 1, 2), [(corpo, LBLUE, corpo_name), (seated, LORANGE, f"{cesto_name} (assentado, -{drop:.1f} mm)")],
+            30, f"{version} — corte pelo plano a 30°")
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=100)
+    plt.close(fig)
+
+
+def render_versions():
+    """One preview per (corpo, cesto) pair in every version folder."""
+    for version, files in VERSIONS.items():
+        corpos = [n for n in files if n.startswith("corpo")]
+        cestos = [n for n in files if n.startswith("cesto")]
+        for corpo_name in corpos:
+            for cesto_name in cestos:
+                suffix = "" if len(cestos) == 1 else "_" + cesto_name.replace(".stl", "")
+                out = os.path.join(STL, version, f"preview{suffix}.png")
+                fig_version(version, corpo_name, cesto_name, out)
+                print("preview ->", os.path.relpath(out, ROOT))
+
+
 def fig_nivel():
     """Two crowns, same pump: only the submerged slot length works, so the
     level settles at the same height — extra crown height is dry wall."""
@@ -170,6 +209,7 @@ def main():
     fig_petg(load(V2, LATEST_CORPO), load(V2, LATEST_CESTO))
     fig_nivel()
     print("figures ->", OUT)
+    render_versions()
 
 
 if __name__ == "__main__":

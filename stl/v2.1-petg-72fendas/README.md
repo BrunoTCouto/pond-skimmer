@@ -9,3 +9,7 @@ fizemos no corpo?"
 | `cesto150_v2.1.stl` | cesto | fendas da parede **36 → 72** (costela ~3 mm, 43% aberta em vez de 21%); colar Ø136; resto igual à v2.0 |
 
 Só encaixam um no outro. Superada por [`v2.2-petg-prateleira`](../v2.2-petg-prateleira/).
+
+## Preview
+
+![preview](preview.png)

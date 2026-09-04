@@ -16,6 +16,8 @@ lá e já custaram várias impressões.
   nova com README curto (o pedido, o que mudou, arquivos) e uma entrada no
   CHANGELOG. **Nunca editar ou regenerar uma pasta existente.** Nome:
   `vX.Y-<apelido>`; arquivos `corpo150_vX.Y.stl` / `cesto150_vX.Y.stl`.
+  Toda pasta tem `preview.png` (3D + corte assentado) gerado por
+  `tools/render.py` (itera `VERSIONS`) e referenciado no README da pasta.
   (Isso foi exigido pelo dono depois de eu sobrescrever `v2.0-petg` três vezes.)
 - Corpo e cesto de uma pasta encaixam entre si; nunca misturar pastas. Todo
   par novo passa pelo `tools/check_fit.py` (0 colisão assentado e em
