@@ -174,10 +174,3 @@ docs/IMPRESSO.md          o que está no lago, com SHA-256
 CHANGELOG.md              versões
 CLAUDE.md                 regras pra sessões de Claude Code
 ```
-
-## 🙏 Crédito
-
-O conceito — corpo ranhurado na boca do cano com cesto interno removível —
-vem de um "Pond skimmer" para cano de 110 mm publicado no MakerWorld. A
-geometria aqui é toda nova (150 mm, barreira de peixes, sem pescoço) e o
-`.3mf` original não é redistribuído.
