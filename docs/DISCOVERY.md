@@ -97,13 +97,16 @@ isso que define o nível:
   chanfro interno da saia (r 68 @ z-10 → 70,3 @ z0). Desce ~1,3 mm e trava
   com contato de área; nada acima da borda. Encaixa no corpo impresso, mas o
   cone raso **trava** (tan 13° < atrito → efeito cone Morse): sai com um puxão.
-- Conjunto PETG (v2.0): o corpo ganha uma **prateleira de assento** dentro da
-  saia — topo reto de 2,2 mm e parte de baixo a 60° até a parede. Como o
-  corpo imprime de ponta-cabeça, o topo reto (que apoia o cesto) é impresso
-  virado pra baixo: por isso é estreito, um balanço de uma camada igual ao
-  das abinhas do v3; o resto do anel só encolhe até a parede. O cesto v5 tem
-  um colar reto que apoia nela (batente, não trava, 0,7 mm de folga no furo).
-  Parede do v5 com 72 fendas (43% aberta) em vez de 36. Só encaixa nesse corpo.
+- Conjunto PETG (v2.0): o corpo ganha um **anel de assento a 45°** dentro da
+  saia (fundo reto, face de cima a 45° subindo até o furo). Como o corpo
+  imprime de ponta-cabeça, na impressão o anel cresce pra dentro a 45° e
+  termina reto — "parte de baixo inclinada, topo reto", exatamente o que uma
+  impressora gosta. O cesto v5 tem borda a 45° casada: autocentra, batente
+  positivo, não trava; colar com 0,7 mm de folga no furo da saia (o primeiro
+  rascunho tinha 0,2–0,6 mm — apertado demais pra PETG). Parede do v5 com 72
+  fendas (43% aberta) em vez de 36. Só encaixa nesse corpo.
+- Chegamos a trocar por uma prateleira reta de 2,2 mm com 60° embaixo; era
+  equivalente, e o dono preferiu voltar ao 45° original.
 - Pegadinha nova de CSG: polígono de `CrossSection` em sentido **horário** é
   lido como furo → o `revolve` sai vazio e a união inteira vira um manifold
   inválido (bbox `None`). Sempre CCW no plano (r, z).

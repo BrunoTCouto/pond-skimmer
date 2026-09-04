@@ -42,18 +42,18 @@ SEAT_WALL = 2.4
 COLLAR4_R, COLLAR4_Z1 = 69.2, 3.0       # centering collar, 0.8 mm to the flange bore
 FINE4_Z0, FINE4_Z1 = -52.0, -20.0
 
-# ---------------- PETG set: corpo with an internal shelf seat + cesto v5 ----------------
-# Ledge inside the skirt: FLAT top (the seat, 2.2 mm wide) and a 60-deg underside
-# rising to the bore. Printed upside-down, the flat seat is a 2.2 mm one-layer
-# overhang (same as the v3 tabs) and the 60-deg face then only shrinks back
-# to the wall: no real overhang. Positive stop, no self-lock, flat-on-flat.
-# Skirt bore here (no bevel) is r 68.2 @ z-6 .. 68.6 @ z0.
-SHELF_Z     = -6.0                      # seat plane (top of the ledge)
-SHELF_R_IN  = 66.0                      # ledge reaches inward to here (2.2 mm shelf)
-LEDGE_H     = 3.8                       # 60-deg underside: drops 3.8 mm over 2.2 mm
-V5_COLLAR_R = 67.5                      # collar OD: 0.7-1.1 mm clearance to the bore
+# ---------------- PETG set: corpo with an internal 45-deg seat + cesto v5 ----------------
+# Ledge inside the skirt: flat underside, 45-deg top face rising to the bore.
+# The corpo prints upside-down, so in print the ledge grows inward at 45 deg
+# (printable) and ends in a flat top: fine. The basket's 45-deg flare lands
+# on the face: positive stop, self-centering, does not self-lock (unlike the
+# 13-deg bevel seat of v4). No bevel cut in this corpo.
+# Skirt bore here is r 68.2 @ z-6 .. 68.6 @ z0.
+SEAT5_R_IN  = 64.5                      # ledge reaches inward to here
+SEAT5_Z_BOT = -9.0                      # flat underside of the ledge
+SEAT5_R_TOP = 68.7                      # where the 45-deg face meets the skirt bore
+V5_TOP_R    = 67.5                      # basket collar radius: 0.7 mm clearance to the bore
 V5_TOP_Z    = -3.0                      # nothing above this (rim is z=0)
-V5_FLARE_R  = 66.0                      # 45-deg flare 63 -> 66 ends under the collar
 FINE5_Z0, FINE5_Z1 = -52.0, -16.0
 N_FINE5 = 72                            # 2x the v3/v4 slot count: ribs ~2.8 mm, ~42% open
 
@@ -182,11 +182,11 @@ def build_corpo_petg():
             - Manifold.cylinder(10.0, CROWN_R_IN, CROWN_R_IN, SEG).translate([0, 0, FLANGE_T - 1]))
     crown = tube(CROWN_R_OUT, CROWN_R_IN, FLANGE_T, CROWN_TOP)
     fuse = tube(SKIRT_R_TOP, 70.2, -2.0, FLANGE_T)
-    # seat ledge: flat top at SHELF_Z from SHELF_R_IN to inside the wall; 60-deg
-    # underside from the inner edge down/out to the bore
-    # (CCW in the r-z plane: CW polygons are read as holes -> empty manifold)
-    prof = CrossSection([[(SHELF_R_IN, SHELF_Z), (SHELF_R_IN + 2.2, SHELF_Z - LEDGE_H),
-                          (69.5, SHELF_Z - LEDGE_H), (69.5, SHELF_Z)]])
+    # seat ledge (CCW in the r-z plane: CW polygons are read as holes -> empty
+    # manifold): flat bottom, 45-deg top face, welded 1 mm into the skirt wall
+    z_top = SEAT5_Z_BOT + (SEAT5_R_TOP - SEAT5_R_IN)
+    prof = CrossSection([[(SEAT5_R_IN, SEAT5_Z_BOT), (SEAT5_R_TOP + 1.0, SEAT5_Z_BOT),
+                          (SEAT5_R_TOP + 1.0, z_top)]])
     seat = Manifold.revolve(prof, SEG)
     body = skirt + flange + cham + crown + fuse + seat
     slots = radial_cuts(N_SLOTS, CROWN_SLOT_W, 58.0, FLANGE_R_OUT + 3,
@@ -200,10 +200,13 @@ def build_corpo_petg():
 
 
 def build_cesto_v5():
-    """Basket for the PETG corpo: flat collar underside rests on the shelf."""
-    z1 = SHELF_Z - (V5_FLARE_R - BASK_R_OUT)                                   # 45 deg, 63 -> 66
-    flare = cone_tube(BASK_R_OUT, V5_FLARE_R, BASK_WALL + 0.4, z1, SHELF_Z + 0.01)
-    collar = tube(V5_COLLAR_R, V5_FLARE_R - BASK_WALL, SHELF_Z, V5_TOP_Z)      # flat bottom = seat face
+    """Basket for the PETG corpo: 45-deg flare lands on the seat face."""
+    # flare outer line r = 63 + (z - z1) coincides with the seat face
+    # r = SEAT5_R_IN + (z - SEAT5_Z_BOT)  ->  z1 = SEAT5_Z_BOT - (SEAT5_R_IN - BASK_R_OUT)
+    z1 = SEAT5_Z_BOT - (SEAT5_R_IN - BASK_R_OUT)
+    z2 = z1 + (V5_TOP_R - BASK_R_OUT)
+    flare = cone_tube(BASK_R_OUT, V5_TOP_R, BASK_WALL + 0.4, z1, z2 + 0.01)
+    collar = tube(V5_TOP_R, V5_TOP_R - BASK_WALL - 0.4, z2, V5_TOP_Z)
     wall = tube(BASK_R_OUT, BASK_R_OUT - BASK_WALL, BASK_BOTTOM_Z, z1 + 0.5)
     cone, knob, hub_top = _cone_and_knob()
     cesto = flare + collar + wall + cone + knob

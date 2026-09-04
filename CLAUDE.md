@@ -14,6 +14,9 @@ lá e já custaram várias impressões.
   `corpo150_petg` ↔ `cesto v5`. Nunca misturar. Todo cesto novo passa pelo
   `tools/check_fit.py` contra o corpo do par (0 colisão assentado e em
   +20/+50 mm; 1 corpo; estanque; assento com acomodação < 2 mm).
+- **README = versão mais atual, sempre** — texto, tabela e a figura de
+  capa (`docs/images/petg_montado.png` hoje). Versões antigas ficam em
+  `stl/<versão>/README.md` e no CHANGELOG, não no topo do README.
 - **Versionamento**: o que está no lago está em `docs/IMPRESSO.md` (arquivo,
   material, data, SHA-256) e numa tag `vN.N-instalado`. Ao imprimir e
   instalar um conjunto novo: atualizar IMPRESSO.md, CHANGELOG.md e criar a

@@ -114,13 +114,13 @@ def fig_cestos(v3, v4):
 def fig_petg(corpo, v5):
     fig = plt.figure(figsize=(18, 12))
     show3d(fig.add_subplot(2, 3, 1, projection="3d"), [(corpo, BLUE)],
-           "Corpo PETG — coroa turbo + prateleira de assento interna", elev=15)
+           "Corpo PETG — coroa turbo + anel de assento interno a 45°", elev=15)
     show3d(fig.add_subplot(2, 3, 2, projection="3d"), [(v5, ORANGE)],
-           "Cesto v5 — colar reto que apoia na prateleira; 72 fendas", elev=15)
+           "Cesto v5 — borda a 45° que assenta no anel; 72 fendas", elev=15)
     show3d(fig.add_subplot(2, 3, 3, projection="3d"), [(corpo, BLUE), (v5, ORANGE), (pipe(), GRAY)],
            "Conjunto PETG montado", elev=15)
     section(fig.add_subplot(2, 1, 2), [(corpo, LBLUE, "corpo PETG"), (v5, LORANGE, "cesto v5")], 30,
-            "Corte — colar do cesto apoiado na prateleira de 2,2 mm dentro da saia (batente reto, não trava)")
+            "Corte — o cesto encosta no anel de 45° dentro da saia: batente positivo, autocentrante, não trava")
     fig.tight_layout()
     fig.savefig(os.path.join(OUT, "petg_montado.png"), dpi=100)
     plt.close(fig)

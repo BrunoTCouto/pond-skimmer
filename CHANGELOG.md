@@ -8,21 +8,19 @@ está fisicamente no lago está em [docs/IMPRESSO.md](docs/IMPRESSO.md).
 Reimpressão definitiva das duas peças, preparada em 2026-09-04.
 
 - `stl/v2.0-petg/corpo150_petg.stl`: coroa turbo idêntica à v1.0 (80 fendas × 3 mm,
-  80 mm, 2 anéis, parede 4 mm) + **prateleira de assento dentro da saia**:
-  topo reto em z −6 (2,2 mm de largura, r 66 → furo) e parte de baixo subindo
-  a 60° até a parede. Impresso de ponta-cabeça, o topo reto é um balanço de
-  uma camada de 2,2 mm (igual às abinhas do v3) e o resto só encolhe. Sem o
-  chanfro do furo da saia.
-- `stl/v2.0-petg/cesto150_v5.stl`: colar de Ø135 com fundo reto que apoia na
-  prateleira (batente positivo, não trava; 0,7 mm de folga no furo); topo em
-  z −3 (nada acima da borda do cano);
+  80 mm, 2 anéis, parede 4 mm) + **anel de assento a 45° dentro da saia**
+  (z −9 a −4,8; r 64,5 → 68,7). Impresso de ponta-cabeça o anel cresce pra
+  dentro a 45° e termina reto — imprime sem suporte. Sem o chanfro do furo.
+- `stl/v2.0-petg/cesto150_v5.stl`: borda a 45° que assenta no anel (batente
+  positivo, autocentrante, não trava); colar Ø135 com 0,7 mm de folga no furo
+  da saia; topo em z −3 (nada acima da borda do cano);
   **72 fendas** de 2 mm na parede (43% aberta, o dobro do v3/v4); fundo em
   cone com 72 fendas de 2 mm; botão.
 - Pares: `corpo150_petg` ↔ `cesto150_v5` **somente**. O v5 não tem onde
   apoiar no corpo v1.0 (cai 8 mm até bater na saia).
-- Verificação: 1 corpo cada, 0 colisões em 0/+20/+50 mm, apoia na
-  prateleira sem acomodação (0,0 mm), perímetro aberto 52% → 240 mm de
-  vertedouro equivalente.
+- Verificação: 1 corpo cada, 0 colisões em 0/+20/+50 mm, assenta no anel
+  com 0,4 mm de acomodação, perímetro aberto 52% → 240 mm de vertedouro
+  equivalente.
 
 ## v1.0 — instalado (tag `v1.0-instalado`)
 
