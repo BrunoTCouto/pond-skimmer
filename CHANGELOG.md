@@ -37,5 +37,3 @@ O que está no lago desde 2026-09-03/04.
 - Coroa de 55 mm com 36 fendas de 3 mm + banda giratória no cesto (regulagem
   0–3 mm). Impressa; a água passou por cima da coroa (vertedouro equivalente
   ~85 mm). Lição registrada em `docs/DISCOVERY.md`.
-- Plano B ("cerca" de Ø191 em volta do cano) desenhado e descartado; removido
-  do repo.

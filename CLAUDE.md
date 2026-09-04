@@ -17,8 +17,6 @@ lá e já custaram várias impressões.
   material, data, SHA-256) e numa tag `vN.N-instalado`. Ao imprimir e
   instalar um conjunto novo: atualizar IMPRESSO.md, CHANGELOG.md e criar a
   tag. Mudança de geometria = entrada no CHANGELOG.
-- O plano B ("cerca" em volta do cano) foi descartado pelo dono e removido
-  do repo — não reintroduzir.
 - Gate de peixe: coroa **3 mm**; fendas do cesto **2 mm** (sempre menores
   que a coroa). Não mexer sem falar com o dono.
 - Nível do lago = perímetro aberto na linha d'água. Altura de coroa, grade e
