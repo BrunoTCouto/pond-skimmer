@@ -1,0 +1,8 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+# slicer project files are local
+*.3mf
+*.gcode
